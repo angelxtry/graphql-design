@@ -4,6 +4,42 @@ const typeDefs = gql`
   type Query {
     cars: [Car!]!
   }
+  
+  type Mutation {
+    deleteGroup(id: ID!)
+    publishGroup(id: ID!)
+    unPublishGroup(id: ID!)
+    addCars(groupId: ID!, carID: ID!)
+    removeCars(groupId: ID!, carID: ID!)
+    createGroup(
+      groupInput: GroupInput!
+    )
+    updateGroup(
+      groupId: ID!
+      groupInput: GroupInput!
+    ): GroupUpdatePayload!
+  }
+  
+  type GroupUpdatePayload {
+    userErrors: [UserErrors]!
+    group: Group
+  }
+  
+  type UserErrors {
+    message: String!
+    field: [String!]!
+  }
+  
+  input GroupInput {
+    name: String
+    image: ImageInput
+    description: String
+    featureSet: GroupFeatureFields
+  }
+  
+  input ImageInput {
+    url: String!
+  }
 
   type Car {
     id: ID!
